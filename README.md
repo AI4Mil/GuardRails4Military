@@ -49,15 +49,16 @@ Designing AI Guardrails for Military-Grade Language Models
 
 ## 🔍 시스템 구조
 
+```markdown
 ```mermaid
-graph TD;
-    A[User Query] --> B[Input Validators (regex, sentiment, toxicity)];
-    B -->|allowed| C[Colang Rule Matching];
-    C --> D[LLM Call (e.g. Gemma 2B)];
-    D --> E[Output Validators];
-    E -->|pass| F[Final Response];
-    E -->|blocked| G[Apology or Denial Response];
-```
+graph TD
+    A["User Query"] --> B["Input Validators: regex / sentiment / toxicity"]
+    B -->|Allowed| C["Colang Rule Matching"]
+    C --> D["LLM Call (e.g. Gemma 2B)"]
+    D --> E["Output Validators"]
+    E -->|Pass| F["Final Response"]
+    E -->|Blocked| G["Apology or Denial Response"]
+
 
 - LLM 사용 전후로 GuardRails의 이중 필터 적용
 - 필요 시 `LLM-as-a-Judge` 또는 `custom classifier` 사용
