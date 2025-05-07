@@ -58,7 +58,7 @@ graph TD
     D --> E["Output Validators"]
     E -->|Pass| F["Final Response"]
     E -->|Blocked| G["Apology or Denial Response"]
-
+```
 
 - LLM 사용 전후로 GuardRails의 이중 필터 적용
 - 필요 시 `LLM-as-a-Judge` 또는 `custom classifier` 사용
