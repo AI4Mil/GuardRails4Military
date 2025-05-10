@@ -11,9 +11,9 @@ Designing AI Guardrails for Military-Grade Language Models
 
 - ✅ **군 정책/훈령에 기반한 행정 질의 자동화**
 - ✅ **이데올로기, 군사기밀, 군기 문란 콘텐츠 필터링**
-- ✅ **11가지 프롬프트 인젝션 우회 전략 차단**
-- ✅ **RAG 기반으로 비기밀 군 정보 제공**
+- ✅ **6가지 콘텐츠 우회 프롬프트 인젝션 전략 차단**
 - ✅ **NVIDIA NeMo GuardRails 기반 안전성 구현**
+- (미포함) **RAG 기반으로 비기밀 군 정보 제공**
 
 ---
 
@@ -38,12 +38,12 @@ Designing AI Guardrails for Military-Grade Language Models
 
 ## 🛡️ 우회 전략 (Prompt Injection 방어)
 
-총 11가지 프롬프트 인젝션 시나리오 대응:
+총 6가지 프롬프트 인젝션 시나리오 대응:
 
 - 컨텍스트 위장, 인코딩/디코딩, 역할극, 메타프롬프트
 - 다단계 체이닝, 조건부 시나리오, 퍼즐 기반 우회 등
 
-→ 모든 전략은 **Colang 규칙 + input/output validator**로 차단됩니다.
+→ 모든 전략은 **YML 규칙 + Colang + input/output validator**로 차단됩니다.
 
 ---
 
@@ -70,7 +70,7 @@ Designing AI Guardrails for Military-Grade Language Models
 ## 📚 기술 스택
 
 - [x] NVIDIA NeMo GuardRails
-- [x] HuggingFace Gemma-2B (or Falcon, LLaMA 등 선택 가능)
+- [x] HuggingFace Gemma-3B (or Falcon, LLaMA 등 선택 가능)
 - [x] Python, Transformers, LangChain
 - [x] Google Colab + RAG 통합 실험 환경
 
