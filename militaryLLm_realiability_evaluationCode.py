@@ -46,7 +46,7 @@ if os.path.exists(checkpoint_path):
     existing_all = pd.concat(existing_df.values(), ignore_index=True)
     done_prompts = set(existing_all["질의문"])
     results = existing_all.to_dict("records")
-    print(f"🔁 재시작: {len(done_prompts)}개 이미 처리됨")
+    print(f"재시작: {len(done_prompts)}개 이미 처리됨")
 else:
     done_prompts = set()
     results = []
@@ -94,6 +94,6 @@ for idx, row in tqdm(all_df.iterrows(), total=len(all_df)):
                 df_topic = df_all[df_all["주제"] == topic]
                 if not df_topic.empty:
                     df_topic.to_excel(writer, sheet_name=topic[:31], index=False)
-        print(f"✅ 중간 저장 완료: {len(results)}개 → {checkpoint_path}")
+        print(f"중간 저장 완료: {len(results)}개 → {checkpoint_path}")
 
-print("🏁 전체 실행 완료")
+print("전체 실행 완료")
