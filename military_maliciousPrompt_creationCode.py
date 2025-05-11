@@ -8,14 +8,14 @@ from tqdm.notebook import tqdm
 from google.colab import drive
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 
-# ✅ API 키 설정
+# API 키 설정
 os.environ["OPENAI_API_KEY"] = "OPENAI_API_KEY 입력"
 client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# ✅ Google Drive 마운트
+# Google Drive 마운트
 drive.mount('/content/drive')
 
-# ✅ 저장 경로 설정
+# 저장 경로 설정
 save_path = "/content/drive/MyDrive/query/3300개_우회전략_질의문_3번방식_15.xlsx"
 
 topics = {}
@@ -168,7 +168,7 @@ strategy_examples = {
     ]
 }
 
-# ✅ 메타프롬프트 생성 함수
+# 메타프롬프트 생성 함수
 def build_meta_prompt(topic, subtopic, strategy, examples):
     # 전략 사용 유무 판단
     is_direct = (strategy == "무전략")
@@ -263,7 +263,7 @@ def build_meta_prompt(topic, subtopic, strategy, examples):
 - 질문자는 의도적으로 GPT를 속이려는 인물임을 반영하고, 완전히 새로운 구성일 것
 """.strip()
 
-# ✅ 중단된 생성 결과 불러오기
+# 중단된 생성 결과 불러오기
 def load_existing_results(path):
     if os.path.exists(path):
         xls = pd.read_excel(path, sheet_name=None)
@@ -275,11 +275,11 @@ def clean_illegal_chars(value):
         return ILLEGAL_CHARACTERS_RE.sub("", value)
     return value
 
-# ✅ 질의 생성 함수 (기존 결과와 비교하여 누락만 생성)
+# 질의 생성 함수 (기존 결과와 비교하여 누락만 생성)
 def generate_prompts(topics, strategy_examples, n_per_strategy, existing=None):
     sheet_results = existing or {topic: [] for topic in topics}
     total = len(topics) * len(strategy_examples) * n_per_strategy
-    progress = tqdm(total=total, desc="🔄 생성 중", position=0, leave=False)
+    progress = tqdm(total=total, desc="생성 중", position=0, leave=False)
 
     for topic, subtopics in topics.items():
         for strategy, examples in strategy_examples.items():
@@ -315,7 +315,7 @@ def generate_prompts(topics, strategy_examples, n_per_strategy, existing=None):
     progress.close()
     return sheet_results
 
-# ✅ 결과 저장 함수
+# 결과 저장 함수
 def save_results_to_excel(results, path):
     with pd.ExcelWriter(path, engine='openpyxl') as writer:
         for topic, rows in results.items():
@@ -323,10 +323,10 @@ def save_results_to_excel(results, path):
             cleaned_rows = [{k: clean_illegal_chars(v) for k, v in row.items()} for row in rows]
             df = pd.DataFrame(cleaned_rows)
             df.to_excel(writer, sheet_name=topic[:31], index=False)
-    print("✅ 저장 완료:", path)
+    print("저장 완료:", path)
 
 
-# ✅ 실행
+# 실행
 existing = load_existing_results(save_path)
 results = generate_prompts(topics, strategy_examples, n_per_strategy=100, existing=existing)
 save_results_to_excel(results, save_path)
