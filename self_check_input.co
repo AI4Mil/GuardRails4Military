@@ -1,0 +1,30 @@
+# 일반적인 사용자 메시지 유형 정의
+define user express general
+  "안녕하세요", "오늘 기분이 어때요?", "도움이 필요해요", "잘 지내세요?"
+
+# 봇 응답 유형 정의
+define bot express greeting
+  "안녕하세요!", "반갑습니다!"
+
+define bot offer help
+  "어떤 도움을 드릴까요?"
+
+define bot refuse to respond
+  "죄송합니다. 그 주제에 대해서는 응답할 수 없습니다."
+
+# self check input 흐름 정의
+define flow self check input
+  $allowed = execute self_check_input
+
+  if not $allowed
+    bot refuse to respond
+    stop
+
+  bot say "통과"
+  stop
+
+# 일반 대화 흐름
+define flow general conversation
+  user express general
+  bot express greeting
+  bot offer help
